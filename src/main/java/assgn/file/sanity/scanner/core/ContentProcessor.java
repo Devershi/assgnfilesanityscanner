@@ -6,14 +6,15 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class ContentProcessor {
 
     public static final String PROFANITY_WORDS_FILE = "C:\\Users\\Devershi Srivastava\\Desktop\\Tester\\words.txt";
-    Trie trie;
+    static Trie trie;
 
-    public void loadProfanityFile(String filePath) {
+    public static void loadProfanityFile(String filePath) {
         trie = new Trie();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -38,7 +39,7 @@ public class ContentProcessor {
 
     }
 
-    public ArrayList<String> process(String line) {
+    public List<String> process(String line) {
         preprocess(line);
         line = preprocess(line);
         ArrayList<String> badWords = new ArrayList<String>();
@@ -52,7 +53,7 @@ public class ContentProcessor {
         return badWords;
     }
 
-    public static void main(String[] args) {
+    public static void test() {
 
         System.out.println("Loading config file");
         ContentProcessor m = new ContentProcessor();
@@ -60,17 +61,12 @@ public class ContentProcessor {
         m.loadProfanityFile(PROFANITY_WORDS_FILE);
         System.out.println("We have database of " + m.trie.getTotal() + " words");
 
-/*
-System.out.println("Trie has mklsm or not :"+m.trie.containsNode("MKLSM"));
-System.out.println("Trie has life or not :"+m.trie.containsNode("LIFE"));
-*/
-
         String linesForTesting[] = {"nksnm mjsdk Mklsm snms jkm, ",
                 "hello n,mnxa,sl nmasnxsa  kka ",
                 "no bad words here"};
 
         for (String line : linesForTesting) {
-            ArrayList<String> findBadWords = m.process(line);
+            ArrayList<String> findBadWords = (ArrayList<String>) m.process(line);
             if (findBadWords.size() > 0) {
                 System.out.println("your line had following bad words " + findBadWords);
             } else {
