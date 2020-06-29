@@ -1,6 +1,7 @@
 package assgn.file.sanity.scanner.core;
 
 import assgn.file.sanity.scanner.trie.Trie;
+import assgn.file.sanity.scanner.utils.FileScannerUtils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -11,7 +12,6 @@ import java.util.StringTokenizer;
 
 public class ContentProcessor {
 
-    public static final String PROFANITY_WORDS_FILE = "C:\\Users\\Devershi Srivastava\\Desktop\\Tester\\words.txt";
     static Trie trie;
 
     public static void loadProfanityFile(String filePath) {
@@ -29,12 +29,10 @@ public class ContentProcessor {
         }
     }
 
-
     private String preprocess(String line) {
     //uppercase
     // Can include steps to remove all punctuations  : :,
     // can replace the common numerics 1->I, 8->B
-
         return line.toUpperCase();
 
     }
@@ -58,7 +56,7 @@ public class ContentProcessor {
         System.out.println("Loading config file");
         ContentProcessor m = new ContentProcessor();
 
-        m.loadProfanityFile(PROFANITY_WORDS_FILE);
+        m.loadProfanityFile(FileScannerUtils.PROFANITY_WORDS_FILE);
         System.out.println("We have database of " + m.trie.getTotal() + " words");
 
         String linesForTesting[] = {"nksnm mjsdk Mklsm snms jkm, ",
